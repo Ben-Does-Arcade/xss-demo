@@ -22,22 +22,66 @@
                 Suppose you have a page where you wish to display the user's name using a path parameter. During normal
                 use, this URL could look something like this:
             </p>
-            <a class="url-try" href="attack1.html?username=John%20Smith">Try &rarr;</a>
-            <code style="text-wrap: nowrap; overflow-x: scroll;">
-                https://xss.benstafford.dev/attack1.html<b>?username=John%20Smith</b>
-            </code>
+            <div class="url-block">
+                <a class="url-try" href="attack1.html?username=John%20Smith">Try &rarr;</a>
+                <code>
+                    https://xss.benstafford.dev/attack1.html<b>?username=John%20Smith</b>
+                </code>
+            </div>
+            <p>This would print <code>Hello, John Smith!</code> on that page.</p>
             <p>
                 Let's also suppose the page in which the endpoint is located is <i>not</i> sanitizing data in this field
                 and, therefore, places the path parameter's content directly into the page. This is not good!
             </p>
+            <h3>Exploiting HTML event attributes</h3>
             <p>
-                Of course, one can take advantage of this. Remember that any payload into this field
-                <b>must be URI encoded first</b> before sending it as otherwise the HTTP request to the site is deemed
-                syntactically invalid.
+                Of course, one can take advantage of this. Using some HTML attribute trickery, you would be able to
+                execute arbitrary JavaScript code on the target machine. Here's an example:
+            </p>
+            <div class="url-block">
+                <a class="url-try" href="attack1.html?username=%3Cimg%20src=%22lmao%22%20onerror=%22alert('xss%20executed!')%22%3E">Try &rarr;</a>
+                <code>
+                    &lt;img src="lmao" onerror="alert('xss executed!')"&gt;
+                </code>
+            </div>
+            <p>
+                This takes advantage of a trick where you are able to render an <code>&lt;img&gt;</code> element on
+                the page and immediately execute JavaScript code within the element as it appears on the page.
             </p>
             <p>
-                Try the demo below. Your browser will navigate to the
+                HTML contains numerous event attributes where you can directly run JavaScript code within the element
+                when a specific event occurs. Here, we are using the <code>onerror</code> event which triggers when the
+                image experiences an error when loading. Because we know that <code>lmao</code> is not a valid image
+                path either as an absolute or relative path and doesn't include a file extension, the image instantly
+                fails to load and triggers <code>onerror</code>. In this case, the code causes an alert in the browser.
             </p>
+            <p>
+                When discussing XSS, <code>window.alert()</code> is an easy and popular way to demonstrate that
+                arbitrary JavaScript code was executed on the browser.
+            </p>
+            <h3>Try it yourself</h3>
+            <blockquote>
+                <b>NOTE</b>
+                <p>
+                    Normally, <i>this would need to be URI encoded first</i>, but this demo handles that for you before
+                    redirecting to the endpoint, so you can just focus on programming your XSS attack.
+                </p>
+            </blockquote>
+            <p>Try the demo below. You can write HTML here. Your browser will navigate to the endpoint you enter.</p>
+            <p>
+                If you need an example to get started, click <b>Example</b> to populate the field with a pre-made
+                XSS attack.
+                <br />
+                Press <i>Ctrl + Enter</i> or click <b>Run</b> to navigate to the page.
+                <br />
+                Press <i>Enter</i> for a new line.
+            </p>
+            <label for="attack1">username query param</label>
+            <textarea id="attack1" style="font-family: 'Courier New', monospace;"></textarea>
+            <button id="attack1-run" class="primary">Run &rarr;</button>
+            <button id="attack1-clear">Clear &cross;</button>
+            <button id="attack1-example">Example &check;</button>
+            <script type="text/javascript" src="index.js"></script>
         </div>
     </body>
 </html>
