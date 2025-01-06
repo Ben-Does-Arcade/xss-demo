@@ -1,2 +1,4 @@
-# xss-demo
-Live demo of how XSS attacks could work in real scenarios. This site also includes testing cookies where you are able to really see the power of stealing session data from users.
+# XSS Live Demo
+A live demo of how XSS attacks could work in real scenarios.
+
+There weren't really any good demos of how XSS works online, so I decided to make one.
