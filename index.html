@@ -12,12 +12,22 @@
             <p>This site demonstrates the power of the XSS attack when it can be run on an online service.</p>
             <p>Several attack methods are included here, so you can get an idea for how each one works.</p>
             <hr />
-            <h2>Attack 1</h2>
+            <h2>What is XSS?</h2>
             <p>
-                <code>attack1.html</code> simulates a situation in which the URL path parameters can be abused to inject
-                arbitrary HTML and JavaScript code can be executed directly on the user's machine.
+                <u>XSS is a simple attack that involves arbitrarily executing code on a target user's browser
+                by means of a poorly designed frontend and/or backend system.</u>
             </p>
-            <h3>How it works</h3>
+            <p>
+                This type of attack can be invoked in a variety of ways, including through forms, query parameters,
+                profile pages on social media, and more. We will take a look at several methods here.
+            </p>
+            <h3>How the demo works</h3>
+            <p>
+                In the context of this demo, <code>attack1.html</code> simulates a situation in which the URL query
+                parameters can be abused to inject arbitrary HTML and JavaScript code directly on the target user's
+                browser.
+            </p>
+            <h2>XSS with URL query parameters</h2>
             <p>
                 Suppose you have a page where you wish to display the user's name using a path parameter. During normal
                 use, this URL could look something like this:
@@ -59,7 +69,54 @@
                 When discussing XSS, <code>window.alert()</code> is an easy and popular way to demonstrate that
                 arbitrary JavaScript code was executed on the browser.
             </p>
-            <h3>Try it yourself</h3>
+            <h3>Redirecting window location</h3>
+            <p>
+                Since we now have a way to run whatever we want, it's possible to redirect the user to any page you
+                want, even if it is outside the current domain. You can probably see where I'm going here. I dare you
+                to try this one:
+            </p>
+            <div class="url-block">
+                <a class="url-try" href="attack1.html?username=%3Cimg%20src=%22evil%22%20onerror=%22location.href%20=%20'https://youtube.com/watch?v=dQw4w9WgXcQ'%22%3E">Try &rarr;</a>
+                <code>
+                    &lt;img src="evil" onerror="location.href = 'https://youtube.com/watch?v=dQw4w9WgXcQ'"&gt;
+                </code>
+            </div>
+            <h3>DANGEROUS! Stealing session data</h3>
+            <p>
+                So far the other examples have demonstrated that it is possible to arbitrarily execute JavaScript code
+                on the page. However, none of them have done much besides <i>play</i> with the user a little bit. Let's
+                move on to discuss a <b>real powerful example</b> that XSS is known for &ndash; accessing user
+                <b>session tokens</b> through exfiltrating <code>document.cookie</code> !
+            </p>
+            <blockquote>
+                <b>HINT</b>
+                <p>
+                    <i>Session tokens</i> are strings of text that act as an alternative password to keep the end user
+                    logged into a service. Typically, session tokens expire after a set amount of time; however, in some
+                    cases, the expiration time may not exist or would be long enough for a malicious user to compromise
+                    the target user's account.
+                </p>
+            </blockquote>
+            <p>
+                This becomes even more powerful as the link appears to be a genuine link that wouldn't look any
+                different from what the user is used to seeing on the site. For example, imagine my domain was a user's
+                cloud service provider. The link could look like the following in a fake email sent from an attacker.
+                Click <b>Try</b> to see it in action and to learn more.
+            </p>
+            <code class="code-block">
+                Hi John,
+                <br /><br />
+                Someone has tried to access your account and you need to take action now to change your password.
+                <br />
+                Please <a class="url-try" href="http://localhost:63342/xss-demo/attack1.html?username=%3Cb%3Ehacker!%3C/b%3E%3Cbr%20/%3E%3Cbr%20/%3EAs%20most%20links%20these%20days%20are%20long%20and%20filled%20with%20random%20characters,%20the%20user%20typically%20doesn't%20expect%20anything%20weird%20to%20happen%20upon%20seeing%20a%20bunch%20of%20random%20characters%20in%20the%20URL">Try &rarr;</a><a class="monospace" style="text-decoration: underline;">log in</a>
+                to your account now.
+                <br />
+                <br />
+                Thanks,
+                <br />
+                Super Secure Cloud Company
+            </code>
+            <h2>Try it yourself!</h2>
             <blockquote>
                 <b>NOTE</b>
                 <p>
@@ -76,11 +133,27 @@
                 <br />
                 Press <i>Enter</i> for a new line.
             </p>
-            <label for="attack1">username query param</label>
+            <label id="attack1-label" for="attack1">username query param</label>
             <textarea id="attack1" style="font-family: 'Courier New', monospace;"></textarea>
             <button id="attack1-run" class="primary">Run &rarr;</button>
+            <button id="attack1-copy">Copy Link &rarr;</button>
             <button id="attack1-clear">Clear &cross;</button>
             <button id="attack1-example">Example &check;</button>
+            <h3>Advanced: Try cookie grabber attacks</h3>
+            <p>
+                Want to experiment with how session tokens could be stolen? I've included one in this site called
+                <code>session</code> which, by default, is set to <code>my_secret_session_token</code>.
+            </p>
+            <p>
+                Use the field below to change its value. You can open the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Tools_and_setup/What_are_browser_developer_tools#how_to_open_the_devtools_in_your_browser">DevTools menu</a>
+                in your browser to view its value. You may also use the JavaScript console to set this cookie.
+            </p>
+            <p>The cookie is currently set to: <b><code id="attack1-cookie-value">loading</code></b></p>
+            <label for="attack1-cookie">Cookie value</label>
+            <input id="attack1-cookie" type="text">
+            <br />
+            <button id="attack1-cookie-set" class="primary">Save &check;</button>
+            <button id="attack1-cookie-reset">Reset &cross;</button>
             <script type="text/javascript" src="index.js"></script>
         </div>
     </body>
