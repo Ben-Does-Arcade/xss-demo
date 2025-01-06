@@ -22,17 +22,21 @@
                 Suppose you have a page where you wish to display the user's name using a path parameter. During normal
                 use, this URL could look something like this:
             </p>
-            <a class="url-try" target="_blank" href="attack1.html?username=John%20Smith">Try &rarr;</a>
-            <code>
-                https://xss.benstafford.dev/attack1.html?username=John%20Smith
+            <a class="url-try" href="attack1.html?username=John%20Smith">Try &rarr;</a>
+            <code style="text-wrap: nowrap; overflow-x: scroll;">
+                https://xss.benstafford.dev/attack1.html<b>?username=John%20Smith</b>
             </code>
             <p>
                 Let's also suppose the page in which the endpoint is located is <i>not</i> sanitizing data in this field
                 and, therefore, places the path parameter's content directly into the page. This is not good!
             </p>
             <p>
-                Of course, one can take advantage of this. Remember that any payload into this field must be URI encoded
-                first before sending it as otherwise the HTTP request to the site is deemed syntactically invalid.
+                Of course, one can take advantage of this. Remember that any payload into this field
+                <b>must be URI encoded first</b> before sending it as otherwise the HTTP request to the site is deemed
+                syntactically invalid.
+            </p>
+            <p>
+                Try the demo below. Your browser will navigate to the
             </p>
         </div>
     </body>
