@@ -47,7 +47,7 @@ h1 {
 }
 
 h3 {
-    font-size: 11pt;
+    font-size: 12pt;
 }
 
 a {
@@ -66,6 +66,10 @@ input, textarea {
     border: 1px solid #000;
     border-radius: 3px;
     padding: 5px;
+}
+
+input {
+    margin-bottom: 5px;
 }
 
 input:focus, textarea:focus {
@@ -134,9 +138,17 @@ button.primary:hover {
     overflow-x: auto;
 }
 
+.url-block code {
+    font-size: 11pt;
+}
+
 .code-block {
     display: block;
     width: 100%;
+}
+
+.monospace {
+    font-family: 'Courier New', monospace;
 }
 
 #attack1 {
