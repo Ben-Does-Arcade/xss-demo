@@ -1,3 +1,53 @@
 * {
     font-family: "Roboto", sans-serif;
 }
+
+html {
+    margin: 0;
+}
+
+body {
+    background-color: midnightblue;
+}
+
+code {
+    background-color: #EEE;
+    font-family: 'Courier New', monospace;
+}
+
+p {
+    line-height: 1.5;
+    font-size: 11pt;
+}
+
+h1 {
+    color: midnightblue;
+    text-align: center;
+}
+
+h3 {
+    font-size: 11pt;
+}
+
+.page {
+    background-color: #FFF;
+    margin: 0 auto;
+    max-width: 800px;
+    height: calc(100vh - 60px);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.url-try {
+    background: midnightblue;
+    color: white !important;
+    font-size: 11pt;
+    text-decoration: none;
+    margin-right: 5px;
+    padding: 0 5px;
+    border-radius: 3px;
+}
+
+.url-try:hover {
+    cursor: pointer;
+}
