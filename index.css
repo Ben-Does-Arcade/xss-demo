@@ -20,9 +20,25 @@ code b {
     font-family: 'Courier New', monospace;
 }
 
-p {
+p, blockquote {
     line-height: 1.5;
     font-size: 11pt;
+}
+
+blockquote {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 15px;
+    border-left: 2px solid midnightblue;
+}
+
+blockquote b {
+    display: block;
+    color: midnightblue;
+}
+
+blockquote p:first-of-type {
+    margin-top: 0;
 }
 
 h1 {
@@ -39,18 +55,63 @@ a {
     text-decoration: none;
 }
 
+label {
+    display: block;
+    font-size: 8pt;
+    text-transform: uppercase;
+}
+
+input, textarea {
+    outline: none;
+    border: 1px solid #000;
+    border-radius: 3px;
+    padding: 5px;
+}
+
+input:focus, textarea:focus {
+    border-color: midnightblue;
+    outline: 1px solid midnightblue;
+}
+
+button {
+    background-color: lightgrey;
+    border: none;
+    font-size: 11pt;
+    text-decoration: none;
+    padding: 0 5px;
+    border-radius: 3px;
+    min-height: 20px;
+    transition: background-color 100ms linear;
+    overflow: hidden;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #BBB;
+}
+
+button.primary {
+    background-color: midnightblue;
+    color: white;
+}
+
+button.primary:hover {
+    background-color: #23239e;
+    color: white;
+}
+
 .page {
     background-color: #FFF;
     margin: 0 auto;
     max-width: 800px;
-    height: calc(100vh - 60px);
+    min-height: calc(100vh - 60px);
     padding: 20px;
     border-radius: 5px;
     overflow-x: hidden;
 }
 
 .url-try {
-    background: midnightblue;
+    background-color: midnightblue;
     color: white !important;
     font-size: 11pt;
     text-decoration: none;
@@ -64,9 +125,22 @@ a {
 }
 
 .page-back {
-    background: midnightblue;
-    color: white !important;
     font-size: 14pt;
     padding: 0 5px;
-    border-radius: 3px;
+}
+
+.url-block {
+    text-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.code-block {
+    display: block;
+    width: 100%;
+}
+
+#attack1 {
+    font-size: 11pt;
+    width: 100%;
+    resize: none;
 }
