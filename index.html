@@ -132,9 +132,9 @@
             <h4>Simulating a cookie attack</h4>
             <p>Here's an example of a payload that would print the content of the cookie to the screen:</p>
             <div class="url-block">
-                <a class="url-try" href="attack1.html?username=http://localhost:63342/xss-demo/attack1.html?username=%3Cimg%20src=%22evil%22%20onerror=%22prompt('You%20have%20been%20hacked!%20Your%20session%20token%20is:',%20document.cookie.split('=')%5B1%5D)%22%3E">Try &rarr;</a>
+                <a class="url-try" href="attack1.html?username=http://localhost:63342/xss-demo/attack1.html?username=%3Cimg%20src=%22bruh%22%20onerror=%22prompt('You%20have%20been%20hacked!%20Your%20session%20token%20is:',%20document.cookie.split('=')%5B1%5D)%22%3E">Try &rarr;</a>
                 <code>
-                    &lt;img src="evil" onerror="prompt('You have been hacked! Your session token is:',
+                    &lt;img src="bruh" onerror="prompt('You have been hacked! Your session token is:',
                     document.cookie.split('=')[1])"&gt;
                 </code>
             </div>
@@ -151,9 +151,9 @@
                 XSS is a secretive attack that the user may not even notice has occurred in the background.
             </p>
             <div class="url-block">
-                <a class="url-try" href="attack1.html?username=%3Cimg%20src=%22evil%22%20onerror=%22const%20msg%20=%20document.getElementById('xss-content');%20msg.textContent='awaiting%20xss%20request...';%20fetch('https://thesimpsonsquoteapi.glitch.me/quotes').then((res)%20=%3E%20%7Bres.json().then((json)%20=%3E%20%7Bmsg.innerHTML=(%60%3Cb%3EQuote%20from%20The%20Simpsons:%3C/b%3E%3Cbr%3E$%7Bjson%5B0%5D%5B'character'%5D%7D:%20$%7Bjson%5B0%5D%5B'quote'%5D%7D%60);%7D);%7D);%22%3E">Try &rarr;</a>
+                <a class="url-try" href="attack1.html?username=%3Cimg%20src=%22nah%22%20onerror=%22const%20msg%20=%20document.getElementById('xss-content');%20msg.textContent='awaiting%20xss%20request...';%20fetch('https://thesimpsonsquoteapi.glitch.me/quotes').then((res)%20=%3E%20%7Bres.json().then((json)%20=%3E%20%7Bmsg.innerHTML=(%60%3Cb%3EQuote%20from%20The%20Simpsons:%3C/b%3E%3Cbr%3E$%7Bjson%5B0%5D%5B'character'%5D%7D:%20$%7Bjson%5B0%5D%5B'quote'%5D%7D%60);%7D);%7D);%22%3E">Try &rarr;</a>
                 <code>
-                    &lt;img src="evil" onerror="const msg = document.getElementById('xss-content'); msg.textContent='awaiting xss request...'; fetch('https://thesimpsonsquoteapi.glitch.me/quotes').then((res) => {res.json().then((json) => {msg.innerHTML=(`&lt;b&gt;Quote from The Simpsons:&lt;/b&gt;&lt;br&gt;${json[0][\'character\']}: ${json[0][\'quote\']}`);});});"&gt;
+                    &lt;img src="nah" onerror="const msg = document.getElementById('xss-content'); msg.textContent='awaiting xss request...'; fetch('https://thesimpsonsquoteapi.glitch.me/quotes').then((res) => {res.json().then((json) => {msg.innerHTML=(`&lt;b&gt;Quote from The Simpsons:&lt;/b&gt;&lt;br&gt;${json[0][\'character\']}: ${json[0][\'quote\']}`);});});"&gt;
                 </code>
             </div>
             <blockquote>
