@@ -61,6 +61,7 @@ attack1Clear.addEventListener("click", () => {
     attack1Field.value = "";
     attack1Field.style.height = "auto";
     attack1Field.style.height = "calc(" + attack1Field.scrollHeight + "px - 10px)";
+    attack1Field.focus();
 });
 
 // Handle copy link button press
@@ -80,9 +81,9 @@ attack1Copy.addEventListener("click", () => {
 
 // Handle example button press
 attack1Example.addEventListener("click", () => {
-    attack1Field.value = '<img src="bad" onerror="/* your JS code */">';
+    attack1Field.value = '<img src="" onerror="/* your JS code */">';
     attack1Field.focus();
-    attack1Field.setSelectionRange(24, 42);
+    attack1Field.setSelectionRange(21, 39);
 });
 
 // Handle cookie set button press
@@ -114,4 +115,5 @@ attack1CookieReset.addEventListener("click", () => {
     attack1CookieInput.value = "my_secret_session_token";
     setCookie();
     attack1CookieInput.value = "";
+    attack1CookieInput.focus();
 });
