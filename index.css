@@ -47,7 +47,11 @@ h1 {
 }
 
 h3 {
-    font-size: 12pt;
+    font-size: 13pt;
+}
+
+h4 {
+    font-size: 11pt;
 }
 
 a {
