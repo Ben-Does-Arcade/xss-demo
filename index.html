@@ -132,7 +132,7 @@
             <h4>Simulating a cookie attack</h4>
             <p>Here's an example of a payload that would print the content of the cookie to the screen:</p>
             <div class="url-block">
-                <a class="url-try" href="attack1.html?username=http://localhost:63342/xss-demo/attack1.html?username=%3Cimg%20src=%22bruh%22%20onerror=%22prompt('You%20have%20been%20hacked!%20Your%20session%20token%20is:',%20document.cookie.split('=')%5B1%5D)%22%3E">Try &rarr;</a>
+                <a class="url-try" href="attack1.html?username=https://xss.benstafford.dev/attack1.html?username=%3Cimg%20src=%22bruh%22%20onerror=%22prompt('You%20have%20been%20hacked!%20Your%20session%20token%20is:',%20document.cookie.split('=')%5B1%5D)%22%3E">Try &rarr;</a>
                 <code>
                     &lt;img src="bruh" onerror="prompt('You have been hacked! Your session token is:',
                     document.cookie.split('=')[1])"&gt;
@@ -176,7 +176,7 @@
                 <br /><br />
                 Someone has tried to access your account and you need to take action now to change your password.
                 <br />
-                Please <a class="url-try" href="http://localhost:63342/xss-demo/attack1.html?username=%3Cb%3Ehacker!%3C/b%3E%3Cbr%20/%3E%3Cbr%20/%3EAs%20most%20links%20these%20days%20are%20long%20and%20filled%20with%20random%20characters,%20the%20user%20typically%20doesn't%20expect%20anything%20weird%20to%20happen%20upon%20seeing%20a%20bunch%20of%20random%20characters%20in%20the%20URL">Try &rarr;</a><a class="monospace" style="text-decoration: underline;">log in</a>
+                Please <a class="url-try" href="https://xss.benstafford.dev/attack1.html?username=%3Cb%3Ehacker!%3C/b%3E%3Cbr%20/%3E%3Cbr%20/%3EAs%20most%20links%20these%20days%20are%20long%20and%20filled%20with%20random%20characters,%20the%20user%20typically%20doesn't%20expect%20anything%20weird%20to%20happen%20upon%20seeing%20a%20bunch%20of%20random%20characters%20in%20the%20URL">Try &rarr;</a><a class="monospace" style="text-decoration: underline;">log in</a>
                 to your account now.
                 <br />
                 <br />

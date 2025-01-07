@@ -37,7 +37,7 @@ attack1Field.addEventListener("input", () => {
 
 // Navigate to endpoint on button press or enter keystroke
 function encodeAttack1() {
-    return "http://localhost:63342/xss-demo/attack1.html?username=" + encodeURI(attack1Field.value);
+    return "https://xss.benstafford.dev/attack1.html?username=" + encodeURI(attack1Field.value);
 }
 
 function openAttack1() {
