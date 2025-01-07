@@ -20,7 +20,7 @@ code b {
     font-family: 'Courier New', monospace;
 }
 
-p, blockquote {
+p, blockquote, li {
     line-height: 1.5;
     font-size: 11pt;
 }
@@ -82,6 +82,7 @@ input:focus, textarea:focus {
 }
 
 button {
+    color: black;
     background-color: lightgrey;
     border: none;
     font-size: 11pt;
@@ -149,6 +150,9 @@ button.primary:hover {
 .code-block {
     display: block;
     width: 100%;
+    box-sizing: border-box;
+    font-size: 11pt;
+    padding: 10px;
 }
 
 .monospace {
