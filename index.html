@@ -11,6 +11,16 @@
             <h1>XSS Demo</h1>
             <p>This site demonstrates the power of the XSS attack when it can be run on an online service.</p>
             <p>Several attack methods are included here, so you can get an idea for how each one works.</p>
+            <blockquote>
+                <b>DANGER</b>
+                <p>
+                    This tool was designed to educate people about the dangers of XSS. It was not designed to entice or
+                    promote malicious actors to take control of any account that does not belong to the rightful owner.
+                    <u>Never attempt any of the exploits you see here on real systems.</u>
+                    Be smart, test these on your own systems only, at your own risk. See the <a href="https://github.com/Ben-Does-Arcade/xss-demo/blob/main/LICENSE" target="_blank">license</a>
+                    for more information.
+                </p>
+            </blockquote>
             <hr />
             <h2>What is XSS?</h2>
             <p>
@@ -197,6 +207,18 @@
                     redirecting to the endpoint, so you can just focus on programming your XSS attack.
                 </p>
             </blockquote>
+            <h4>Tips for building your own XSS script</h4>
+            <p>Here are some things to keep in mind when building your script:</p>
+            <ul>
+                <li>Start with the <b>Example</b> as this inserts the boilerplate code for you</li>
+                <li>Think in terms of JavaScript, and build the logic for what you want it to do</li>
+                <li>Use single quotes <code>''</code> where possible, escaping double quotes with <code>\"\"</code></li>
+            </ul>
+            <p>You can also try the following:</p>
+            <ul>
+                <li>The attack does not have to trigger JavaScript, try modifying other HTML on the page</li>
+                <li>It's possible to attempt to get access to the user's hardware through various JavaScript APIs</li>
+            </ul>
             <h4>How to use this example</h4>
             <p>
                 If you need an example to get started, click <b>Example</b> to populate the field with a pre-made
